@@ -1,0 +1,22 @@
+---
+- name: Install and Configure Nginx
+  hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Install Nginx
+      dnf:
+        name: nginx
+        state: present
+
+    - name: Start Nginx Service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Copy Website
+      copy:
+        src: files/index.html
+        dest: /usr/share/nginx/html/index.html
