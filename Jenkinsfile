@@ -64,3 +64,18 @@ pipeline {
         }
     }
 }
+
+
+
+stage('Terraform Apply') {
+    steps {
+        dir('terraform') {
+            withCredentials([[
+                $class: 'AmazonWebServicesCredentialsBinding',
+                credentialsId: 'aws'
+            ]]) {
+                sh 'terraform apply -auto-approve'
+            }
+        }
+    }
+}
